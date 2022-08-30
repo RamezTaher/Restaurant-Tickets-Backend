@@ -1,13 +1,20 @@
+//import section
 const express = require("express")
+const app = express()
 const dotenv = require("dotenv").config()
 const PORT = process.env.PORT || 5000
+const { errorHandler } = require("./middleware/errorMiddleware")
 
-const app = express()
+//import routes
+const routerAuth = require("./routes/authRoutes")
 
-app.get("/", (req, res) => {
-  res.send("Hello ")
-})
+//middleware
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
+app.use(errorHandler)
 
-app.use("/api/users", require("./routes/authRoutes"))
+//routes middleware
+app.use("/api/auth", routerAuth)
 
+//server listening
 app.listen(PORT, () => console.log(`server Started on ${PORT}`))

@@ -8,4 +8,6 @@ app.get("/", (req, res) => {
   res.send("Hello ")
 })
 
+app.use("/api/users", require("./routes/authRoutes"))
+
 app.listen(PORT, () => console.log(`server Started on ${PORT}`))

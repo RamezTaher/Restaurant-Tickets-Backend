@@ -6,7 +6,7 @@ const getOrders = async (req, res) => {
     const user = await User.findById(req.user.id)
 
     if (!user) {
-      return res.status(401).json("User not found")
+      return res.status(401).json("User not founded")
     }
 
     const orders = await Order.find({ user: req.user.id })
@@ -26,7 +26,7 @@ const createOrder = async (req, res) => {
     const user = await User.findById(req.user.id)
     console.log(req.user.id)
     if (!user) {
-      return res.status(401).json("User not found")
+      return res.status(401).json("User not founded")
     }
 
     const orders = await Order.create({

@@ -13,6 +13,7 @@ connectDB()
 
 //import routes
 const routerAuth = require("./routes/authRoutes")
+const routerOrders = require("./routes/orderRoutes")
 
 //middleware
 app.use(express.json())
@@ -22,6 +23,7 @@ app.use(cors())
 
 //routes middleware
 app.use("/api/auth", routerAuth)
+app.use("/api/orders", routerOrders)
 
 //server listening
 app.listen(PORT, () => console.log(`server Started on ${PORT}`))

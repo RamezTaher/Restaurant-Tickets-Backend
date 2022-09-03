@@ -55,7 +55,9 @@ const signInUser = async (req, res) => {
     } else {
       return res.status(401).json("Wrong Password")
     }
-  } catch (error) {}
+  } catch (error) {
+    res.status(401).json("Wrong Password")
+  }
 }
 
 const getMe = async (req, res) => {

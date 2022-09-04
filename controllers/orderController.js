@@ -9,14 +9,8 @@ const getOrders = async (req, res) => {
       return res.status(401).json("User not founded")
     }
 
-    const order = await Order.findById(req.params.id)
-    if (!order) {
-      res.status(404).json("Order not founded")
-    }
-    if (ticket.user.toString() !== req.user.id) {
-      res.status(401).json("Not Authorized")
-    }
-    res.status(200).json(order)
+    const orders = await Order.find({ user: req.user.id })
+    res.status(200).json(orders)
   } catch (error) {
     return res.status(404).json(error)
   }
@@ -27,11 +21,17 @@ const getSignleOrder = async (req, res) => {
     const user = await User.findById(req.user.id)
 
     if (!user) {
-      return res.status(401).json("User not founded")
+      return res.status(401).json("User not found")
     }
 
-    const orders = await Order.find({ user: req.user.id })
-    res.status(200).json(orders)
+    const order = await Order.findById(req.params.id)
+    if (!order) {
+      res.status(404).json("Order not founded")
+    }
+    if (ticket.user.toString() !== req.user.id) {
+      res.status(401).json("Not Authorized")
+    }
+    res.status(200).json(order)
   } catch (error) {
     return res.status(404).json(error)
   }
@@ -63,8 +63,32 @@ const createOrder = async (req, res) => {
   }
 }
 
+const deleteOrder = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id)
+
+    if (!user) {
+      res.status(401)
+      throw new Error("User not found")
+    }
+
+    const order = await Order.findById(req.params.id)
+    if (!order) {
+      res.status(404).json("Order not founded")
+    }
+    if (ticket.user.toString() !== req.user.id) {
+      res.status(401).json("Not Authorized")
+    }
+    await order.remove()
+    res.status(200).json({ success: true })
+  } catch (error) {
+    return res.status(404).json(error)
+  }
+}
+
 module.exports = {
   getOrders,
   createOrder,
   getSignleOrder,
+  deleteOrder,
 }

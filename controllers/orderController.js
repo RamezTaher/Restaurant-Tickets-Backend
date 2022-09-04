@@ -28,12 +28,12 @@ const getSignleOrder = async (req, res) => {
     if (!order) {
       res.status(404).json("Order not founded")
     }
-    if (ticket.user.toString() !== req.user.id) {
+    if (order.user.toString() !== req.user.id) {
       res.status(401).json("Not Authorized")
     }
     res.status(200).json(order)
   } catch (error) {
-    return res.status(404).json(error)
+    res.status(404).json(error)
   }
 }
 
@@ -76,7 +76,7 @@ const deleteOrder = async (req, res) => {
     if (!order) {
       res.status(404).json("Order not founded")
     }
-    if (ticket.user.toString() !== req.user.id) {
+    if (order.user.toString() !== req.user.id) {
       res.status(401).json("Not Authorized")
     }
     await order.remove()
@@ -99,7 +99,7 @@ const updateOrder = async (req, res) => {
     if (!order) {
       res.status(404).json("Order not founded")
     }
-    if (ticket.user.toString() !== req.user.id) {
+    if (order.user.toString() !== req.user.id) {
       res.status(401).json("Not Authorized")
     }
     const updatedOrder = await Order.findByIdAndUpdate(

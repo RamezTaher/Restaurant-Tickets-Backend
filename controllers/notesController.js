@@ -35,7 +35,7 @@ const addNote = async (req, res) => {
 
     if (order.user.toString() !== req.user.id) {
       res.status(401)
-      throw new Error("User Not Authorized")
+      throw new Error("User not Authorized")
     }
 
     const note = await Notes.create({

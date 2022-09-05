@@ -1,8 +1,6 @@
 const express = require("express")
 const router = express.Router()
 
-const { protect } = require("../middleware/authMiddleware")
-
 const {
   getOrders,
   getSignleOrder,
@@ -10,6 +8,12 @@ const {
   deleteOrder,
   updateOrder,
 } = require("../controllers/orderController")
+
+const { protect } = require("../middleware/authMiddleware")
+
+const notesRouter = require("./notesRoutes")
+
+router.use("/:orderId/notes", notesRouter)
 
 router.route("/").get(protect, getOrders).post(protect, createOrder)
 

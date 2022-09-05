@@ -1,6 +1,8 @@
 const express = require("express")
-const router = express.Router()
+const router = express.Router({ mergeParams: true })
 const { protect } = require("../middleware/authMiddleware")
 const { getNotes } = require("../controllers/notesController")
 
-route.router("/").get(protect, getNotes)
+router.route("/").get(protect, getNotes)
+
+module.exports = router

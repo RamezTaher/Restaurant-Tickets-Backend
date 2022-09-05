@@ -14,7 +14,7 @@ const getNotes = async (req, res) => {
 
     if (order.user.toString() !== req.user.id) {
       res.status(401)
-      throw new Error("User Not Authorized")
+      throw new Error("User not authorized")
     }
 
     const notes = await Notes.find({ order: req.params.orderId })
